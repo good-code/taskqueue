@@ -2,15 +2,18 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include "queue_item.h"
+//#include "queue_item.h"
+#include "save2file.h"
 
 // http://code.runnable.com/UqvNM9NFP0gtAAAM/command-line-arguments-with-options-in-c%2B%2B
 
+using namespace dq;
 void showhelpinfo(char *s);
 //using namespace std;
 int main (int argc,char *argv[])
 {
-  Item nitem;
+    Item nitem;
+  load_queue(default_queue);
   char tmp;
   /*if the program is ran witout options ,it will show the usgage and exit*/
   if(argc == 1)
@@ -33,7 +36,13 @@ int main (int argc,char *argv[])
         nitem.label = optarg;
         break;
       case 'p':
-        nitem.prio = int(optarg);
+		try {
+			// I know much better solution exist!
+			nitem.prio = int(optarg);
+		}
+		catch(const char* msg) {
+		    std::cout << msg << "\n";
+		}
         //if piro not in 1 .. 10 error
         break;
       /*option v show the version infomation*/
@@ -50,5 +59,17 @@ int main (int argc,char *argv[])
   if ( nitem.prio > 0 && nitem.label.length() > 0 ) 
      add2_queue(nitem.prio, nitem.label);
 
+  save_queue(default_queue);
   return 0;
+}
+
+
+void showhelpinfo(char *s) {
+using namespace std;
+  cout<<"Usage:   "<<s<<" [-option] [argument]"<<endl;
+  cout<<"option:  "<<"-h  show help information"<<endl;
+  cout<<"         "<<"-l label"<<endl;
+  cout<<"         "<<"-p priority"<<endl;
+  cout<<"         "<<"-v  show version infomation"<<endl;
+  cout<<"example: "<<s<<" -l'refactor code' -p10"<<endl;
 }

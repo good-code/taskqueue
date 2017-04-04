@@ -1,7 +1,7 @@
 q:
 	g++ -std=gnu++11 src/q.cpp -o bin/q
 args:
-	g++ -std=gnu++11 src/args.cpp -o bin/args
+	g++ -I/usr/include/boost -std=gnu++11 -lboost_system -fpermissive src/args.cpp -o bin/args
 stat:
 	perf stat ./bin/q
 	perf stat ./bin/args -h

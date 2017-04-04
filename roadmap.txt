@@ -1,12 +1,20 @@
 0.1
 add task to queue
 load from file
+save queue to file
 redesign of queue
+unittests
+
+qa: before release
+ensure priority comp works as expected
+ensure queue saves to file
+ensure queue loads from file
 
 0.2
 support for multiple queue
-save queue to file
 list tasks in queue
+complete interface
 
 0.3
-
+design and implement timers 
+change of priorities
