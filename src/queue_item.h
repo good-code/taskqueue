@@ -1,18 +1,27 @@
 class Item {
+
 public:
+
     int prio;
     std::string label;
 };
 
-std::queue<Item> default_queue;
+class Comp_Items {
+    public:
+        bool operator() (Item Item1, Item Item2) {
+        if ( Item1.prio >  Item2.prio ) 
+            return true;
 
+        }
+};
 
-Item item_compr(Item Item1, Item Item2) {
-    if ( Item1.prio >  Item2.prio ) {
-        return Item1;
-    }
-    else return Item2;
+std::priority_queue<Item, std::vector<Item>, Comp_Items> default_queue;
+
+void add2_queue(int prio, std::string label) {
+    Item *nq;
+    nq = new Item;
+    nq->prio = prio;
+    nq->label = label;
+    default_queue.push(*nq);
+    delete nq;
 }
-
-
-

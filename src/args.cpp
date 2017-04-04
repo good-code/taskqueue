@@ -2,13 +2,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include "queue_item.h"
 
 // http://code.runnable.com/UqvNM9NFP0gtAAAM/command-line-arguments-with-options-in-c%2B%2B
 
 void showhelpinfo(char *s);
-using namespace std;
+//using namespace std;
 int main (int argc,char *argv[])
 {
+  Item nitem;
   char tmp;
   /*if the program is ran witout options ,it will show the usgage and exit*/
   if(argc == 1)
@@ -19,7 +21,7 @@ int main (int argc,char *argv[])
   /*use function getopt to get the arguments with option."hu:p:s:v" indicate 
   that option h,v are the options without arguments while u,p,s are the
   options with arguments*/
-  while((tmp=getopt(argc,argv,"hu:p:s:v"))!=-1)
+  while((tmp=getopt(argc,argv,"h:l:p:v"))!=-1)
   {
     switch(tmp)
     {
@@ -27,45 +29,26 @@ int main (int argc,char *argv[])
       case 'h':
         showhelpinfo(argv[0]);
         break;
-      /*option u present the username*/
-      case 'u':
-        cout<<"Your username is "<<optarg<<endl;
+      case 'l':
+        nitem.label = optarg;
         break;
-      /*option p present the password*/ 
       case 'p':
-        cout<<"Your password is "<<optarg<<endl;
-        break;
-      /*option s present the save option*/  
-      case 's':
-        if(strcmp(optarg,"1") == 0)
-          cout<<"You have saved the password"<<endl;
-        else if(strcmp(optarg,"0") == 0)
-          cout<<"You have chosen to forget the password"<<endl;
-        else
-          /*invail input will get the heil infomation*/
-          showhelpinfo(argv[0]);
+        nitem.prio = int(optarg);
+        //if piro not in 1 .. 10 error
         break;
       /*option v show the version infomation*/
       case 'v':
-        cout<<"The current version is 0.1"<<endl;
-      break;
+        std::cout<<"The current version is 0.1"<<std::endl;
+        break;
       /*invail input will get the heil infomation*/
       default:
         showhelpinfo(argv[0]);
-      break;
+        break;
     }
   }
-  return 0;
-}
 
-/*funcion that show the help information*/
-void showhelpinfo(char *s)
-{
-  cout<<"Usage:   "<<s<<" [-option] [argument]"<<endl;
-  cout<<"option:  "<<"-h  show help information"<<endl;
-  cout<<"         "<<"-u username"<<endl;
-  cout<<"         "<<"-p  password"<<endl;
-  cout<<"         "<<"-s  save the password: 0(save password) 1(forget password)"<<endl;
-  cout<<"         "<<"-v  show version infomation"<<endl;
-  cout<<"example: "<<s<<" -uusername -ppassword -s1"<<endl;
+  if ( nitem.prio > 0 && nitem.label.length() > 0 ) 
+     add2_queue(nitem.prio, nitem.label);
+
+  return 0;
 }
