@@ -1,11 +1,14 @@
 q:
-	g++ -std=c++11 q.cpp -o q
+	g++ -std=gnu++11 src/q.cpp -o bin/q
 args:
-	g++ -std=c++11 args.cpp -o args
+	g++ -std=gnu++11 src/args.cpp -o bin/args
 stat:
-	perf stat ./q
+	perf stat ./bin/q
+	perf stat ./bin/args
 val:
-	valgrind --tool=callgrind ./q
+	valgrind --tool=callgrind .bin/q
+	valgrind --tool=callgrind .bin/args
 clean:
-	if [ -f ./q ]; then  rm ./q; fi
+	if [ -f .bin/q ]; then  rm .bin/q; fi
+	if [ -f .bin/args ]; then  rm .bin/args; fi
 

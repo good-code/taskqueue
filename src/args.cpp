@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+// http://code.runnable.com/UqvNM9NFP0gtAAAM/command-line-arguments-with-options-in-c%2B%2B
+
 void showhelpinfo(char *s);
 using namespace std;
 int main (int argc,char *argv[])

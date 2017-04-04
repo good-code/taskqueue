@@ -1,0 +1,12 @@
+0.1
+add task to queue
+load from file
+redesign of queue
+
+0.2
+support for multiple queue
+save queue to file
+list tasks in queue
+
+0.3
+
